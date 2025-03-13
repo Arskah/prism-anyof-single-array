@@ -1,0 +1,1 @@
+# prism-anyof-single-array
