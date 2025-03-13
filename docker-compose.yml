@@ -1,0 +1,8 @@
+services:
+  prism:
+    image: stoplight/prism:5.12.1@sha256:271dc94c174a95d9c44b4a4e1b5eb335db1edb7ab88edb4cc9a2cbd7b210ef94
+    ports:
+      - 4011:4011
+    volumes:
+      - ./schema:/schema
+    command: mock -h 0.0.0.0 -p 4011 /schema/api.json

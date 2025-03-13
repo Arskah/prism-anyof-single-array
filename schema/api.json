@@ -1,0 +1,106 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 500,
+                  "title": "Id"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "users": {
+                      "items": {
+                        "$ref": "#/components/schemas/UserSchema"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": ["users"]
+                },
+                "examples": {
+                  "simpleUser": {
+                    "value": {
+                      "users": [
+                        {
+                          "id": "1",
+                          "email": "test1@example.com",
+                          "locale": "en"
+                        }
+                      ]
+                    }
+                  },
+                  "multipleUsers": {
+                    "value": {
+                      "users": [
+                        {
+                          "id": "1",
+                          "email": "test1@example.com",
+                          "locale": "en"
+                        },
+                        {
+                          "id": "2",
+                          "email": "test2@example.com",
+                          "locale": "no"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSchema": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 255,
+            "format": "email"
+          },
+          "locale": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "email", "locale"]
+      }
+    }
+  }
+}
